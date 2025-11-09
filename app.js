@@ -3,6 +3,7 @@ import { engine } from 'express-handlebars';
 import session from 'express-session';
 import hbsHelpers from './utils/hbsHelpers.js';
 import accountRouter from './routes/account.route.js';
+// import userRouter from './routes/user.route.js';
 // import { checkAuthenticated, checkAdmin } from './middlewares/auth.mdw.js';
 
 // 1. Core setup: Place these at the start of the file
@@ -25,6 +26,8 @@ app.use(session({
 // 3. View engine setup: Place these before rendering
 app.engine('hbs', engine({
     extname: '.hbs',
+    layoutsDir: "views/layouts",
+    partialsDir: "views/partials",
     helpers: hbsHelpers,
 }));
 app.set('view engine', 'hbs');
@@ -52,12 +55,13 @@ app.use(function (req, res, next) {
 
 // 6. Routers
 // app.use('/', checkAuthenticated, checkAdmin, adminProductRouter);
-app.use('/', accountRouter);
+// app.use('/category', categoryRouter);
+// app.use('/lesson', lessonRouter);
+app.use('/account', accountRouter);
 
 // 7. Normal routes
 app.get('/', function (req, res) {
     if (req.session.isAuthenticated) {
-        console.log('User is authenticated');
         console.log(req.session.authUser);
     }
 

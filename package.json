@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "project",
+  "name": "PROJ",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {

@@ -1,0 +1,12 @@
+<div class="card">
+    <div class="card-header">
+        Categories
+    </div>
+    <div class="list-group list-group-flush">
+        {{#each global_categories}}
+        <a href="/category?catid={{catid}}" class="list-group-item list-group-item-action">
+            {{catname}}
+        </a>
+        {{/each}}
+    </div>
+</div>

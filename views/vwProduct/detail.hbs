@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="card-header">Product details</div>
+    <div class="card-body">
+        {{#with product}}
+        <img src="/static/imgs/sp/{{proid}}/main.jpg" alt="{{proname}}">
+        <h4 class="card-title">{{proname}}</h4>
+        <h5 class="card-text text-danger">Price: {{format_number price}}</h5>
+        <p class="card-text">Quantity: {{quantity}}</p>
+        <p class="card-text">
+            {{{fulldes}}}
+        </p>
+        {{/with}}
+    </div>
+    <div class="card-footer text-muted">Footer</div>
+</div>

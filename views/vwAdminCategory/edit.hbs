@@ -1,0 +1,30 @@
+<form id="frmEditCategory" action="" method="post">
+    <div class="card">
+        <div class="card-header">Edit Category</div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="txtCategoryId" class="form-label">#</label>
+                <input type="text" class="form-control" id="txtCategoryId" value="{{category.catid}}" name="id" readonly />
+            </div>
+            <div class="mb-3">
+                <label for="txtCategoryName" class="form-label">Category</label>
+                <input type="text" class="form-control" id="txtCategoryName" value="{{category.catname}}" name="catname"
+                    autofocus />
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <a class="btn btn-outline-primary" href="/admin/category" role="button">
+                <i class="bi bi-arrow-left"></i>
+                Back
+            </a>
+            <button type="submit" class="btn btn-danger" formaction="/admin/category/del" formmethod="post">
+                <i class="bi bi-trash"></i>
+                Delete
+            </button>
+            <button type="submit" class="btn btn-success" formaction="/admin/category/patch" formmethod="post">
+                <i class="bi bi-check2"></i>
+                Save
+            </button>
+        </div>
+    </div>
+</form>

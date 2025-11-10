@@ -1,0 +1,75 @@
+<form id="frmAddProduct" action="" method="post">
+    <div class="card">
+        <div class="card-header">Add Product</div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="txtProductName" class="form-label">Product</label>
+                <input type="text" class="form-control" id="txtProductName" name="proname" autofocus />
+            </div>
+            <div class="mb-3">
+                <label for="txtPrice" class="form-label">Price</label>
+                <input type="text" class="form-control" id="txtPrice" name="price" />
+            </div>
+            <div class="mb-3">
+                <label for="txtQuantity" class="form-label">Quantity</label>
+                <input type="text" class="form-control" id="txtQuantity" name="quantity" />
+            </div>
+            <div class="mb-3">
+                <label for="selCategoryId" class="form-label">Category</label>
+                <select class="form-select" id="selCategoryId" name="catid">
+                    {{#each global_categories}}
+                    <option value="{{this.catid}}">{{this.catname}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="txtTinydes" class="form-label">Tiny Description</label>
+                <input type="text" class="form-control" id="txtTinydes" name="tinydes" />
+            </div>
+            <div class="mb-3">
+                <label for="txtFulldes" class="form-label">Full Description</label>
+                <div id="editor" style="height: 200px;"></div>
+                <input type="hidden" class="form-control" id="txtFulldes" name="fulldes" />
+
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <a class="btn btn-outline-primary" href="/admin/product" role="button">
+                <i class="bi bi-arrow-left"></i>
+                Back
+            </a>
+            <button type="submit" class="btn btn-success">
+                <i class="bi bi-check2"></i>
+                Save
+            </button>
+        </div>
+    </div>
+</form>
+
+{{#fillContent 'css'}}
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+{{/fillContent}}
+
+{{#fillContent 'js'}}
+<script src="https://cdn.jsdelivr.net/npm/cleave.js@1.6.0/dist/cleave.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+<script>
+    function applyCleave(selectors, options) {
+        selectors.forEach(s => new Cleave(s, options));
+    }
+
+    applyCleave(['#txtPrice', '#txtQuantity'], {
+        numeral: true,
+        numeralThousandGroupStyle: 'thousand'
+    });
+
+    const quill = new Quill('#editor', {
+        theme: 'snow',
+        placeholder: 'Compose an epic...',
+    });
+
+    document.querySelector('#frmAddProduct').addEventListener('submit', function (e) {
+        document.querySelector('#txtFulldes').value = quill.root.innerHTML;
+    });
+</script>
+{{/fillContent}}

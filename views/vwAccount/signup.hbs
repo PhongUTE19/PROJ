@@ -1,0 +1,99 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-9">
+            <div class="card h-100">
+                <h5 class="card-header">Account Signup</h5>
+                <div class="card-body">
+                    <form id="frmSignup" action="" method="post">
+                        <div class="mb-3">
+                            <label for="txtUsername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="txtUsername" name="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="txtPassword" name="password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtConfirm" class="form-label">Confirm</label>
+                            <input type="password" class="form-control" id="txtConfirm" name="confirm">
+                        </div>
+
+                        <h5>Your Information</h5>
+
+                        <div class="mb-3">
+                            <label for="txtName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="txtName" name="name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtPhone" class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="txtPhone" name="phone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtBirthdate" class="form-label">Birthdate</label>
+                            <input type="date" class="form-control" id="txtBirthdate" name="birthdate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtEmail" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="txtEmail" aria-describedby="emailHelp"
+                                name="email">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-unity"></i> Sign up
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#fillContent 'js'}}
+<script>
+    function handleSubmit(e) {
+        e.preventDefault();
+        // alert("STOP form submisstion");
+
+        const username = document.querySelector("#txtUsername").value;
+        if (username.length === 0) {
+            alert("please enter username.");
+            return;
+        }
+
+        const password = document.querySelector("#txtPassword").value;
+        if (password.length < 4) {
+            alert("Password must be at least 4 characters.");
+            return;
+        }
+
+        const confirm = document.querySelector("#txtConfirm").value;
+        if (confirm !== password) {
+            alert("Confirm password does not match.");
+            return;
+        }
+
+        const url = `/account/is-available?username=${username}`;
+        fetch(url)
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (data) {
+                // alert(`user: ${username} - ${data}`);
+                if (data === false) {
+                    alert('Username is not available. Please choose another username');
+                    return;
+                }
+                e.target.submit();
+            })
+            .catch(function (err) {
+                console.log(err);
+                alert('An error occurred. Please try again later.');
+            })
+
+    }
+
+    document.querySelector("#frmSignup")
+        .addEventListener("submit", handleSubmit);
+</script>
+{{/fillContent}}

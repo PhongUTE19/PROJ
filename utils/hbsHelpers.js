@@ -24,16 +24,16 @@ export const hbsHelpers = {
 		if (!str || str.length <= length) return str;
 		return str.substring(0, length) + '...';
 	},
-	formatNumber(value) {
-		return new Intl.NumberFormat('vi-VN').format(value);
+	format_number(value) {
+		return new Intl.NumberFormat('en-US').format(value);
 	},
-	formatCurrency(value) {
+	format_currency(value) {
 		return new Intl.NumberFormat('vi-VN', {
 			style: 'currency',
 			currency: 'VND'
 		}).format(value);
 	},
-	formatDate(date) {
+	format_date(date) {
 		if (!date) return '';
 		return new Intl.DateTimeFormat('vi-VN', {
 			year: 'numeric',

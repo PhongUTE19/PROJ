@@ -15,7 +15,7 @@ export default {
     del(id) {
         return db(tableName).where('catid', id).del();
     },
-    patch(id, category) {
+    edit(id, category) {
         return db(tableName).where('catid', id).update(category);
     },
 };

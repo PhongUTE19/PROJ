@@ -12,16 +12,16 @@ router.get('/byCategory', async function (req, res) {
     if (category) {
         categoryName = category.catname;
     }
-    // const list = await productModel.findByCategory(id);
+    // const products = await productModel.findByCategory(id);
     // res.render('vwProducts/byCategory', {
-    //     productList: list,
+    //     products: products,
     //     categoryName: categoryName
     // });
 
     const limit = 4;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
-    const list = await productModel.findPageByCategory(id, limit, offset);
+    const products = await productModel.findPageByCategory(id, limit, offset);
     const total = await productModel.countByCategory(id);
     const nPages = Math.ceil(total.amount / limit);
     const pageNumbers = [];
@@ -38,7 +38,7 @@ router.get('/byCategory', async function (req, res) {
     const nextPage = currPage + 1;
 
     res.render('vwProduct/byCategory', {
-        productList: list,
+        products: products,
         categoryName: categoryName,
         catid: id,
         pageNumbers: pageNumbers,
@@ -68,11 +68,11 @@ router.get('/search', async function (req, res) {
     }
 
     const keywords = q.replace(/ /g, ' & ');
-    const productList = await productModel.search(keywords);
+    const products = await productModel.search(keywords);
     res.render('vwProduct/byCategory', {
         q: q,
-        empty: productList.length === 0,
-        productList: productList,
+        empty: products.length === 0,
+        products: products,
         pages: [],
     });
 });

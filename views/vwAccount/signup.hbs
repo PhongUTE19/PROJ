@@ -1,55 +1,55 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-9">
-            <div class="card h-100">
-                <h5 class="card-header">Account Signup</h5>
+<div class="container d-flex justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+        <form id="frmSignup" action="" method="post">
+            <div class="card">
+                <h5 class="card-header">Đăng ký</h5>
                 <div class="card-body">
-                    <form id="frmSignup" action="" method="post">
-                        <div class="mb-3">
-                            <label for="txtUsername" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="txtUsername" name="username">
-                        </div>
-                        <div class="mb-3">
-                            <label for="txtPassword" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="txtPassword" name="password">
-                        </div>
-                        <div class="mb-3">
-                            <label for="txtConfirm" class="form-label">Confirm</label>
-                            <input type="password" class="form-control" id="txtConfirm" name="confirm">
-                        </div>
+                    <div class="mb-3">
+                        <label for="txtUsername" class="form-label">Tên đăng nhập</label>
+                        <input type="text" class="form-control" id="txtUsername" name="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtPassword" class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control" id="txtPassword" name="password">
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtConfirmPassword" class="form-label">Xác nhận lại mật khẩu</label>
+                        <input type="password" class="form-control" id="txtConfirmPassword" name="confirmPassword">
+                    </div>
 
-                        <h5>Your Information</h5>
+                    <h5>Thông tin của bạn</h5>
 
-                        <div class="mb-3">
-                            <label for="txtName" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="txtName" name="name">
+                    <div class="mb-3">
+                        <label for="txtName" class="form-label">Họ và tên</label>
+                        <input type="text" class="form-control" id="txtName" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtPhone" class="form-label">Số điện thoại</label>
+                        <input type="text" class="form-control" id="txtPhone" name="phone">
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtBirthdate" class="form-label">Ngày sinh</label>
+                        <input type="date" class="form-control" id="txtBirthdate" name="birthdate">
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="txtEmail" aria-describedby="emailHelp"
+                            name="email">
+                        <div id="emailHelp" class="form-text">Chúng tôi sẽ không bao giờ chia sẻ email của bạn với bất
+                            kỳ ai
+                            khác.
                         </div>
-                        <div class="mb-3">
-                            <label for="txtPhone" class="form-label">Phone</label>
-                            <input type="text" class="form-control" id="txtPhone" name="phone">
-                        </div>
-                        <div class="mb-3">
-                            <label for="txtBirthdate" class="form-label">Birthdate</label>
-                            <input type="date" class="form-control" id="txtBirthdate" name="birthdate">
-                        </div>
-                        <div class="mb-3">
-                            <label for="txtEmail" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="txtEmail" aria-describedby="emailHelp"
-                                name="email">
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-unity"></i> Sign up
-                        </button>
-                    </form>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-unity"></i> Đăng ký
+                    </button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 
-{{#fillContent 'js'}}
+{{#fill_section 'js'}}
 <script>
     function handleSubmit(e) {
         e.preventDefault();
@@ -67,8 +67,8 @@
             return;
         }
 
-        const confirm = document.querySelector("#txtConfirm").value;
-        if (confirm !== password) {
+        const confirmPassword = document.querySelector("#txtConfirmPassword").value;
+        if (confirmPassword !== password) {
             alert("Confirm password does not match.");
             return;
         }
@@ -96,4 +96,4 @@
     document.querySelector("#frmSignup")
         .addEventListener("submit", handleSubmit);
 </script>
-{{/fillContent}}
+{{/fill_section}}

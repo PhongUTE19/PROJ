@@ -3,8 +3,11 @@ import { engine } from 'express-handlebars';
 import session from 'express-session';
 import hbsHelpers from './utils/hbsHelpers.js';
 import accountRouter from './routes/account.route.js';
-// import userRouter from './routes/user.route.js';
-// import { checkAuthenticated, checkAdmin } from './middlewares/auth.mdw.js';
+import adminProductRouter from './routes/product-admin.route.js';
+import adminCategoryRouter from './routes/category-admin.route.js';
+import productRouter from './routes/product.route.js';
+import categoryModel from './models/category.model.js';
+import { checkAuthenticated, checkAdmin } from './middlewares/auth.mdw.js';
 
 // 1. Core setup: Place these at the start of the file
 // const __dirname = import.meta.dirname;
@@ -40,7 +43,7 @@ app.use(express.urlencoded({
 
 // 5. Global middleware: Place these before routes to create global data
 app.use(async function (req, res, next) {
-    // res.locals.global_categories = await categoryModel.findAll();
+    res.locals.global_categories = await categoryModel.findAll();
     next();
 });
 
@@ -54,10 +57,10 @@ app.use(function (req, res, next) {
 });
 
 // 6. Routers
-// app.use('/', checkAuthenticated, checkAdmin, adminProductRouter);
-// app.use('/category', categoryRouter);
-// app.use('/lesson', lessonRouter);
-app.use('/account', accountRouter);
+app.use("/admin/product", checkAuthenticated, checkAdmin, adminProductRouter);
+app.use("/admin/category", checkAuthenticated, checkAdmin, adminCategoryRouter);
+app.use("/product", productRouter);
+app.use("/account", accountRouter);
 
 // 7. Normal routes
 app.get('/', function (req, res) {

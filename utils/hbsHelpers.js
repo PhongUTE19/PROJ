@@ -1,7 +1,7 @@
 import hbs_sections from 'express-handlebars-sections';
 
 export const hbsHelpers = {
-	fill_section: hbs_sections(),
+	fillSection: hbs_sections(),
 	eq(a, b) {
 		return a === b;
 	},
@@ -24,16 +24,16 @@ export const hbsHelpers = {
 		if (!str || str.length <= length) return str;
 		return str.substring(0, length) + '...';
 	},
-	format_number(value) {
+	formatNumber(value) {
 		return new Intl.NumberFormat('en-US').format(value);
 	},
-	format_currency(value) {
+	formatCurrency(value) {
 		return new Intl.NumberFormat('vi-VN', {
 			style: 'currency',
 			currency: 'VND'
 		}).format(value);
 	},
-	format_date(date) {
+	formatDate(date) {
 		if (!date) return '';
 		return new Intl.DateTimeFormat('vi-VN', {
 			year: 'numeric',
@@ -62,5 +62,13 @@ export const hbsHelpers = {
 		}
 		return arr;
 	},
+	isNew(createdAt) {
+		const days = (Date.now() - new Date(createdAt)) / (1000 * 60 * 60 * 24);
+		return days < 7;
+	},
+	isEmpty(arr) {
+		return !arr || arr.length === 0;
+	},
+
 };
 export default hbsHelpers;

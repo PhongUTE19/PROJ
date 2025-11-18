@@ -1,0 +1,9 @@
+<div class="card-body">
+        <h2 class="card-title d-flex justify-content-center">{{title}}</h2>
+        <p class="card-title d-flex justify-content-center">{{subTitle}}</p>
+        <div class="row">
+            {{#each courses}}
+            {{> course-card}}
+            {{/each}}
+        </div>
+    </div>

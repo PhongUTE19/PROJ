@@ -1,0 +1,24 @@
+<div class="col-md-4 mb-3">
+    <div class="card h-100">
+        <img src="/static/imgs/sp/{{courseId}}/main_thumbs.jpg" alt="No image">
+        <div class="card-body">
+            <h4 class="card-title">{{name}}</h4>
+            <p class="card-text">{{truncate shortDes 100}}</p>
+            <div class="d-flex justify-content-end gap-2">
+                {{#if (isNew createdAt)}}
+                <span class="course-badge">Mới</span>
+                {{/if}}
+                <a href="/course/detail?courseId={{courseId}}" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-info-circle"></i>
+                    Xem chi tiết
+                </a>
+                {{#if ../isAuthenticated}}
+                <a href="#" class="btn btn-sm btn-outline-success">
+                    <i class="bi bi-cart-plus"></i>
+                    Thêm vào danh sách học sau
+                </a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>

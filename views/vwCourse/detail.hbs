@@ -1,0 +1,38 @@
+<div class="card">
+    <div class="card-header">Chi tiết khóa học</div>
+    <div class="card-body">
+        {{#with course}}
+        <img src="/static/imgs/sp/{{courseId}}/main.jpg" alt="No image">
+        <h4 class="card-title">{{name}}</h4>
+        <p class="card-text">
+            {{{longDes}}}
+        </p>
+        <p class="card-text">
+            <i class="bi bi-calendar"></i>
+            {{{formatDate createdAt}}}
+        </p>
+        <p class="card-text">
+            <i class="bi bi-calendar"></i>
+            {{{formatDate updatedAt}}}
+        </p>
+        <p class="card-text">
+            <i class="bi bi-star"></i>
+            {{{rating}}}
+        </p>
+        <p class="card-text">
+            <i class="bi bi-people"></i>
+            {{{ratingCount}}}
+        </p>
+        <p class="card-text">
+            <i class="bi bi-eye"></i>
+            {{{viewCount}}}
+        </p>
+        {{/with}}
+    </div>
+
+    {{> course-section
+    title="khóa học liên quan"
+    subTitle="Khám phá các khóa học liên quan"
+    courses=courses
+    }}
+</div>

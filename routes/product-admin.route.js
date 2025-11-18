@@ -16,12 +16,10 @@ router.get('/add', function (req, res) {
 
 router.post('/add', async function (req, res) {
     const product = {
-        proname: req.body.proname,
-        price: parseInt(req.body.price),
-        quantity: parseInt(req.body.quantity),
-        catid: req.body.catid,
-        tinydes: req.body.tinydes,
-        fulldes: req.body.fulldes,
+        name: req.body.name,
+        categoryId: req.body.categoryId,
+        shortDes: req.body.shortDes,
+        longDes: req.body.longDes,
     }
     await productModel.add(product);
     res.render('vwAdminProduct/add');

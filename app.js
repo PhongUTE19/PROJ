@@ -2,11 +2,14 @@ import express from 'express';
 import { engine } from 'express-handlebars';
 import session from 'express-session';
 import hbsHelpers from './utils/hbsHelpers.js';
+
 import accountRouter from './routes/account.route.js';
 import adminProductRouter from './routes/product-admin.route.js';
 import adminCategoryRouter from './routes/category-admin.route.js';
-import productRouter from './routes/product.route.js';
+import courseRouter from './routes/course.route.js';
+
 import categoryModel from './models/category.model.js';
+import courseModel from './models/course.model.js';
 import { checkAuthenticated, checkAdmin } from './middlewares/auth.mdw.js';
 
 // 1. Core setup: Place these at the start of the file
@@ -57,18 +60,21 @@ app.use(function (req, res, next) {
 });
 
 // 6. Routers
-app.use("/admin/product", checkAuthenticated, checkAdmin, adminProductRouter);
+app.use("/admin/course", checkAuthenticated, checkAdmin, adminProductRouter);
 app.use("/admin/category", checkAuthenticated, checkAdmin, adminCategoryRouter);
-app.use("/product", productRouter);
+app.use("/course", courseRouter);
 app.use("/account", accountRouter);
 
 // 7. Normal routes
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
     if (req.session.isAuthenticated) {
         console.log(req.session.authUser);
     }
 
-    res.render('home');
+    const courses = await courseModel.findAll();
+    res.render('vwCommon/home', {
+        courses: courses,
+    });
 });
 
 // 8. Error handling middleware

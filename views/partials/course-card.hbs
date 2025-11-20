@@ -1,23 +1,40 @@
 <div class="col-md-4 mb-3">
     <div class="card h-100">
-        <img src="/static/imgs/sp/{{courseId}}/main_thumbs.jpg" alt="No image">
+        <img class="course-img" src="/static/imgs/sp/{{course_id}}/main_thumbs.jpg" alt="No image"
+            onerror="this.onerror=null; this.src='/static/imgs/no_image.jpg';">
         <div class="card-body">
-            <h4 class="card-title">{{name}}</h4>
-            <p class="card-text">{{truncate shortDes 100}}</p>
-            <div class="d-flex justify-content-end gap-2">
-                {{#if (isNew createdAt)}}
-                <span class="course-badge">Mới</span>
-                {{/if}}
-                <a href="/course/detail?courseId={{courseId}}" class="btn btn-sm btn-outline-primary">
-                    <i class="bi bi-info-circle"></i>
-                    Xem chi tiết
-                </a>
-                {{#if ../isAuthenticated}}
-                <a href="#" class="btn btn-sm btn-outline-success">
-                    <i class="bi bi-cart-plus"></i>
-                    Thêm vào danh sách học sau
-                </a>
-                {{/if}}
+            <h4 class="card-text-ellipsis">{{name}}</h4>
+            <p class="card-text-ellipsis">{{short_des}}</p>
+            <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-left gap-3">
+                    <p class="card-text">
+                        <i class="bi bi-star"></i>
+                        {{{rating}}}
+                    </p>
+                    <p class="card-text">
+                        <i class="bi bi-people"></i>
+                        {{{rating_count}}}
+                    </p>
+                    <p class="card-text">
+                        <i class="bi bi-eye"></i>
+                        {{{view_count}}}
+                    </p>
+                    {{#if (isNew created_at)}}
+                    <span class="course-badge">Mới</span>
+                    {{/if}}
+                </div>
+                <div class="d-flex justify-content-end gap-3">
+                    <a href="/course/detail?courseId={{course_id}}" class="btn btn-sm btn-outline-primary">
+                        <i class="bi bi-info-circle"></i>
+                        Xem chi tiết
+                    </a>
+                    {{#if ../isAuthenticated}}
+                    <a href="#" class="btn btn-sm btn-outline-success">
+                        <i class="bi bi-cart-plus"></i>
+                        Thêm vào danh sách học sau
+                    </a>
+                    {{/if}}
+                </div>
             </div>
         </div>
     </div>

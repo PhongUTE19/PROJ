@@ -20,10 +20,6 @@ export const hbsHelpers = {
 	gte(a, b) {
 		return a >= b;
 	},
-	truncate(str, length) {
-		if (!str || str.length <= length) return str;
-		return str.substring(0, length) + '...';
-	},
 	formatNumber(value) {
 		return new Intl.NumberFormat('en-US').format(value);
 	},
@@ -69,6 +65,14 @@ export const hbsHelpers = {
 	isEmpty(arr) {
 		return !arr || arr.length === 0;
 	},
+	chunk(array, size) {
+		if (!Array.isArray(array)) return [];
 
+		const chunks = [];
+		for (let i = 0; i < array.length; i += size) {
+			chunks.push(array.slice(i, i + size));
+		}
+		return chunks;
+	},
 };
 export default hbsHelpers;

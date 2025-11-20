@@ -11,6 +11,7 @@ import courseRouter from './routes/course.route.js';
 import categoryModel from './models/category.model.js';
 import courseModel from './models/course.model.js';
 import { checkAuthenticated, checkAdmin } from './middlewares/auth.mdw.js';
+import { CONST } from './constant.js';
 
 // 1. Core setup: Place these at the start of the file
 // const __dirname = import.meta.dirname;
@@ -72,14 +73,15 @@ app.get('/', async function (req, res) {
     }
 
     const courses = await courseModel.findAll();
+    const coursesToShow = courses.slice(0, CONST.CAROUSEL_ITEMS);
     res.render('vwCommon/home', {
-        courses: courses,
+        courses: coursesToShow,
     });
 });
 
 // 8. Error handling middleware
 app.use(function (req, res) {
-    res.status(404).render('404');
+    res.status(404).render('vwCommon/404');
 });
 
 // 9. Start the server: Place this at the end of the file.

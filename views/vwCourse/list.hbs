@@ -2,7 +2,7 @@
     {{!-- <div class="card-header">Search result for "{{q}}"</div> --}}
     <div class="card-header">Danh sách khóa học</div>
     <div class="card-body">
-        <h4 class="card-title">{{categoryName}}</h4>
+        <h4 class="card-title">{{filter.name}}</h4>
         {{#if (eq courses.length 0)}}
         <div class="row">
             <div class="col">
@@ -24,7 +24,7 @@
                     </li>
                     {{else}}
                     <li class="page-item">
-                        <a class="page-link" href="?categoryId={{categoryId}}&page={{prevPage}}">Trước</a>
+                        <a class="page-link" href="?categoryId={{filter.categoryId}}&page={{prevPage}}">Trước</a>
                     </li>
                     {{/if}}
                     {{#each pageNumbers}}
@@ -36,7 +36,7 @@
                     </li>
                     {{else}}
                     <li class="page-item">
-                        <a class="page-link" href="?categoryId={{../categoryId}}&page={{value}}">
+                        <a class="page-link" href="?categoryId={{../filter.categoryId}}&page={{value}}">
                             {{value}}
                         </a>
                     </li>
@@ -48,7 +48,7 @@
                     </li>
                     {{else}}
                     <li class="page-item">
-                        <a class="page-link" href="?categoryId={{categoryId}}&page={{nextPage}}">Sau</a>
+                        <a class="page-link" href="?categoryId={{filter.categoryId}}&page={{nextPage}}">Sau</a>
                     </li>
                     {{/if}}
                 </ul>

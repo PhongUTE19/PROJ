@@ -1,6 +1,53 @@
+:root {
+    --font-xs: 12px;
+    --font-sm: 14px;
+    --font-md: 16px;
+    --font-lg: 20px;
+    --font-xl: 28px;
+
+    --color-primary: #007bff;
+    --color-secondary: #6c757d;
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+
+    --text-title: 600 20px/1.4 "Inter", sans-serif;
+    --text-body: 400 16px/1.4 "Inter", sans-serif;
+}
+
+
+.card {
+    height: 100%;
+}
+
 .card-text-ellipsis {
     display: -webkit-box;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 3em;
+    line-height: 1.5em;
+}
+
+.carousel-indicators {
+    position: static !important; 
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: #000 !important;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.course-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+
+body {
+    padding-top: 70px;
 }

@@ -2,31 +2,36 @@
     <div class="card-header">Chi tiết khóa học</div>
     <div class="card-body">
         {{#with course}}
-        <img src="/static/imgs/sp/{{courseId}}/main.jpg" alt="No image">
+        <img class="course-img" src="/static/imgs/sp/{{course_id}}/main.jpg" alt="No image"
+            onerror="this.onerror=null; this.src='/static/imgs/no_image.jpg';">
         <h4 class="card-title">{{name}}</h4>
         <p class="card-text">
-            {{{longDes}}}
+            {{{long_des}}}
         </p>
-        <p class="card-text">
-            <i class="bi bi-calendar"></i>
-            {{{formatDate createdAt}}}
-        </p>
-        <p class="card-text">
-            <i class="bi bi-calendar"></i>
-            {{{formatDate updatedAt}}}
-        </p>
-        <p class="card-text">
-            <i class="bi bi-star"></i>
-            {{{rating}}}
-        </p>
-        <p class="card-text">
-            <i class="bi bi-people"></i>
-            {{{ratingCount}}}
-        </p>
-        <p class="card-text">
-            <i class="bi bi-eye"></i>
-            {{{viewCount}}}
-        </p>
+        <div class="d-flex justify-content-left gap-3">
+            <p class="card-text">
+                <i class="bi bi-calendar"></i>
+                {{{formatDate created_at}}}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-calendar"></i>
+                {{{formatDate updated_at}}}
+            </p>
+        </div>
+        <div class="d-flex justify-content-left gap-3">
+            <p class="card-text">
+                <i class="bi bi-star"></i>
+                {{{rating}}}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-people"></i>
+                {{{rating_count}}}
+            </p>
+            <p class="card-text">
+                <i class="bi bi-eye"></i>
+                {{{view_count}}}
+            </p>
+        </div>
         {{/with}}
     </div>
 

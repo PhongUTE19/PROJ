@@ -1,33 +1,33 @@
 import express from 'express';
 import categoryModel from '../models/category.model.js';
 import courseModel from '../models/course.model.js';
+import { CONST } from '../constant.js';
 
 const router = express.Router();
 
 router.get('/list', async function (req, res) {
     const categoryId = req.query.categoryId || 0;
 
-    let categoryName = '';
+    let filterName = '';
     if (categoryId == 0) {
-        categoryName = 'Tất cả khóa học';
+        filterName = 'Tất cả khóa học';
     }
     else {
         const category = await categoryModel.findById(categoryId);
         if (category) {
-            categoryName = category.name;
+            filterName = 'Lọc theo: ' + category.name;
         }
     }
 
-    const limit = 9;
     const page = req.query.page || 1;
-    const offset = (page - 1) * limit;
+    const offset = (page - 1) * CONST.PAGE_ITEMS;
     const courses = categoryId == 0 ?
-        await courseModel.findPage(limit, offset) :
-        await courseModel.findPageByCategory(categoryId, limit, offset);
+        await courseModel.findPage(CONST.PAGE_ITEMS, offset) :
+        await courseModel.findPageByCategory(categoryId, CONST.PAGE_ITEMS, offset);
     const total = categoryId == 0 ?
         await courseModel.count() :
         await courseModel.countByCategory(categoryId);
-    const nPages = Math.ceil(total.amount / limit);
+    const nPages = Math.ceil(total.amount / CONST.PAGE_ITEMS);
     const pageNumbers = [];
 
     const currPage = parseInt(page);
@@ -41,10 +41,14 @@ router.get('/list', async function (req, res) {
     const prevPage = currPage - 1;
     const nextPage = currPage + 1;
 
+    const filter = {
+        name: filterName,
+        categoryId: categoryId,
+    }
+
     res.render('vwCourse/list', {
         courses: courses,
-        categoryName: categoryName,
-        categoryId: categoryId,
+        filter: filter,
         pageNumbers: pageNumbers,
         prevPage: prevPage,
         nextPage: nextPage,
@@ -57,8 +61,11 @@ router.get('/detail', async function (req, res) {
     if (!course) {
         return res.redirect('/');
     }
+
+    const courses = await courseModel.findPageByCategory(course.category_id, CONST.PAGE_ITEMS, 0);
     res.render('vwCourse/detail', {
-        course: course
+        course: course,
+        courses: courses
     });
 });
 

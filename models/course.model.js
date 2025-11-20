@@ -1,16 +1,16 @@
 import db from '../utils/db.js';
 
-const tableName = 'courses';
+const tableName = 'courses_PROJ';
 
 export default {
     findAll() {
         return db(tableName);
     },
     findById(id) {
-        return db(tableName).where('courseId', id).first();
+        return db(tableName).where('course_id', id).first();
     },
     findByCategory(id) {
-        return db(tableName).where('categoryId', id);
+        return db(tableName).where('category_id', id);
     },
     findPage(limit, offset) {
         return db(tableName)
@@ -19,17 +19,17 @@ export default {
     },
     findPageByCategory(id, limit, offset) {
         return db(tableName)
-            .where('categoryId', id)
+            .where('category_id', id)
             .limit(limit)
             .offset(offset);
     },
     count() {
-        return db(tableName).count('courseId as amount').first();
+        return db(tableName).count('course_id as amount').first();
     },
     countByCategory(id) {
         return db(tableName)
-            .where('categoryId', id)
-            .count('courseId as amount')
+            .where('category_id', id)
+            .count('course_id as amount')
             .first();
     },
     search(q) {

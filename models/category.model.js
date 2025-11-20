@@ -1,21 +1,21 @@
 import db from '../utils/db.js';
 
-const tableName = 'categories1';
+const tableName = 'categories_PROJ';
 
 export default {
     findAll() {
         return db(tableName);
     },
     findById(id) {
-        return db(tableName).where('categoryId', id).first();
+        return db(tableName).where('category_id', id).first();
     },
     add(category) {
         return db(tableName).insert(category);
     },
     del(id) {
-        return db(tableName).where('categoryId', id).del();
+        return db(tableName).where('category_id', id).del();
     },
     edit(id, category) {
-        return db(tableName).where('categoryId', id).update(category);
+        return db(tableName).where('category_id', id).update(category);
     },
 };

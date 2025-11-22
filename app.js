@@ -4,7 +4,7 @@ import session from 'express-session';
 import hbsHelpers from './utils/hbsHelpers.js';
 
 import accountRouter from './routes/account.route.js';
-import adminProductRouter from './routes/product-admin.route.js';
+import adminCourseRouter from './routes/course-admin.route.js';
 import adminCategoryRouter from './routes/category-admin.route.js';
 import courseRouter from './routes/course.route.js';
 
@@ -61,7 +61,7 @@ app.use(function (req, res, next) {
 });
 
 // 6. Routers
-app.use("/admin/course", checkAuthenticated, checkAdmin, adminProductRouter);
+app.use("/admin/course", checkAuthenticated, checkAdmin, adminCourseRouter);
 app.use("/admin/category", checkAuthenticated, checkAdmin, adminCategoryRouter);
 app.use("/course", courseRouter);
 app.use("/account", accountRouter);

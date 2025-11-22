@@ -3,7 +3,7 @@ import categoryModel from '../models/category.model.js';
 
 const router = express.Router();
 
-router.get('/', async function (req, res) {
+router.get('/list', async function (req, res) {
     const categories = await categoryModel.findAll();
     res.render('vwAdminCategory/list', {
         categories: categories
@@ -18,7 +18,7 @@ router.get('/edit', async function (req, res) {
     const id = req.query.id || 0;
     const category = await categoryModel.findById(id);
     if (category === null) {
-        return res.redirect('/admin/category');
+        return res.redirect('/admin/category/list');
     }
 
     res.render('vwAdminCategory/edit', {
@@ -28,7 +28,8 @@ router.get('/edit', async function (req, res) {
 
 router.post('/add', async function (req, res) {
     const category = {
-        catname: req.body.catname
+        name: req.body.name,
+        description: req.body.description
     };
     await categoryModel.add(category);
     res.render('vwAdminCategory/add');
@@ -37,16 +38,17 @@ router.post('/add', async function (req, res) {
 router.post('/del', async function (req, res) {
     const id = req.body.id;
     await categoryModel.del(id);
-    res.redirect('/admin/category');
+    res.redirect('/admin/category/list');
 });
 
 router.post('/edit', async function (req, res) {
     const id = req.body.id;
     const category = {
-        catname: req.body.catname
+        name: req.body.name,
+        description: req.body.description
     };
     await categoryModel.edit(id, category);
-    res.redirect('/admin/category');
+    res.redirect('/admin/category/list');
 });
 
 export default router;

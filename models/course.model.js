@@ -37,7 +37,13 @@ export default {
             .whereRaw(`fts @@ to_tsquery(remove_accents('${q}'))`);
         // .whereRaw(`fts @@ to_tsquery(remove_accents(?))`, [q]);
     },
-    add(product) {
-        return db(tableName).insert(product);
-    }
+    add(course) {
+        return db(tableName).insert(course);
+    },
+    del(id) {
+        return db(tableName).where('course_id', id).del();
+    },
+    edit(id, course) {
+        return db(tableName).where('course_id', id).update(course);
+    },
 };

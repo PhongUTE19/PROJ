@@ -1,6 +1,6 @@
-import db from '../utils/db.js';
+import db from '../config/database.js';
 
-const tableName = 'categories_PROJ';
+const tableName = 'categories';
 
 export default {
     findAll() {

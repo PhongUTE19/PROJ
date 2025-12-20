@@ -1,17 +1,17 @@
 import express from 'express';
-import courseModel from '../models/course.model.js';
+import courseModel from '../../models/course.model.js';
 
 const router = express.Router();
 
 router.get('/list', async function (req, res) {
     const courses = await courseModel.findAll();
-    res.render('vwAdminCourse/list', {
+    res.render('pages/admin/course/list', {
         courses: courses
     });
 });
 
 router.get('/add', function (req, res) {
-    res.render('vwAdminCourse/add');
+    res.render('pages/admin/course/add');
 });
 
 router.get('/edit', async function (req, res) {
@@ -21,7 +21,7 @@ router.get('/edit', async function (req, res) {
         return res.redirect('/admin/course/list');
     }
 
-    res.render('vwAdminCourse/edit', {
+    res.render('pages/admin/course/edit', {
         course: course
     });
 });
@@ -35,7 +35,7 @@ router.post('/add', async function (req, res) {
         // keywords: req.body.keywords ? req.body.keywords.split(',').map(k => k.trim()) : null,,
     }
     await courseModel.add(course);
-    res.render('vwAdminCourse/add');
+    res.render('pages/admin/course/add');
 });
 
 router.post('/del', async function (req, res) {

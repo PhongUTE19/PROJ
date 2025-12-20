@@ -1,6 +1,6 @@
-import db from '../utils/db.js';
+import db from '../config/database.js';
 
-const tableName = 'courses_PROJ';
+const tableName = 'courses';
 
 export default {
     findAll() {

@@ -1,17 +1,17 @@
 import express from 'express';
 import { engine } from 'express-handlebars';
 import session from 'express-session';
-import hbsHelpers from './utils/hbsHelpers.js';
+import helpers from './views/helpers.js';
 
 import accountRouter from './routes/account.route.js';
-import adminCourseRouter from './routes/course-admin.route.js';
-import adminCategoryRouter from './routes/category-admin.route.js';
+import adminCourseRouter from './routes/admin/course.route.js';
+import adminCategoryRouter from './routes/admin/category.route.js';
 import courseRouter from './routes/course.route.js';
 
 import categoryModel from './models/category.model.js';
 import courseModel from './models/course.model.js';
-import { checkAuthenticated, checkAdmin } from './middlewares/auth.mdw.js';
-import { CONST } from './constant.js';
+import { checkAuthenticated, checkAdmin } from './middlewares/auth.middleware.js';
+import { CONST } from './utils/constant.js';
 
 // 1. Core setup: Place these at the start of the file
 // const __dirname = import.meta.dirname;
@@ -35,7 +35,7 @@ app.engine('hbs', engine({
     extname: '.hbs',
     layoutsDir: "views/layouts",
     partialsDir: "views/partials",
-    helpers: hbsHelpers,
+    helpers: helpers,
 }));
 app.set('view engine', 'hbs');
 app.set('views', './views');
@@ -74,14 +74,14 @@ app.get('/', async function (req, res) {
 
     const courses = await courseModel.findAll();
     const coursesToShow = courses.slice(0, CONST.CAROUSEL_ITEMS);
-    res.render('vwCommon/home', {
+    res.render('pages/common/home', {
         courses: coursesToShow,
     });
 });
 
 // 8. Error handling middleware
 app.use(function (req, res) {
-    res.status(404).render('vwCommon/404');
+    res.status(404).render('pages/error/404');
 });
 
 // 9. Start the server: Place this at the end of the file.

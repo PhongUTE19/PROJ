@@ -11,6 +11,6 @@ export function checkAdmin(req, res, next) {
     if (req.session.authUser.permission === 1)
         next()
     else {
-        res.render('vwAccount/403');
+        res.render('pages/error/403');
     }
 }

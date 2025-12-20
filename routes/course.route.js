@@ -1,78 +1,17 @@
 import express from 'express';
-import categoryModel from '../models/category.model.js';
 import courseModel from '../models/course.model.js';
-import { CONST } from '../constant.js';
+import courseController from '../controllers/course.controller.js';
 
 const router = express.Router();
 
-router.get('/list', async function (req, res) {
-    const categoryId = req.query.categoryId || 0;
-
-    let filterName = '';
-    if (categoryId == 0) {
-        filterName = 'Tất cả khóa học';
-    }
-    else {
-        const category = await categoryModel.findById(categoryId);
-        if (category) {
-            filterName = 'Lọc theo: ' + category.name;
-        }
-    }
-
-    const page = req.query.page || 1;
-    const offset = (page - 1) * CONST.PAGE_ITEMS;
-    const courses = categoryId == 0 ?
-        await courseModel.findPage(CONST.PAGE_ITEMS, offset) :
-        await courseModel.findPageByCategory(categoryId, CONST.PAGE_ITEMS, offset);
-    const total = categoryId == 0 ?
-        await courseModel.count() :
-        await courseModel.countByCategory(categoryId);
-    const nPages = Math.ceil(total.amount / CONST.PAGE_ITEMS);
-    const pageNumbers = [];
-
-    const currPage = parseInt(page);
-    for (let i = 1; i <= nPages; i++) {
-        pageNumbers.push({
-            value: i,
-            isCurrent: i === currPage
-        });
-    }
-
-    const prevPage = currPage - 1;
-    const nextPage = currPage + 1;
-
-    const filter = {
-        name: filterName,
-        categoryId: categoryId,
-    }
-
-    res.render('vwCourse/list', {
-        courses: courses,
-        filter: filter,
-        pageNumbers: pageNumbers,
-        prevPage: prevPage,
-        nextPage: nextPage,
-    });
-});
-
-router.get('/detail', async function (req, res) {
-    const courseId = req.query.courseId || 0;
-    const course = await courseModel.findById(courseId);
-    if (!course) {
-        return res.redirect('/');
-    }
-
-    const courses = await courseModel.findPageByCategory(course.category_id, CONST.PAGE_ITEMS, 0);
-    res.render('vwCourse/detail', {
-        course: course,
-        courses: courses
-    });
-});
+router.get('/list', courseController.list);
+router.get('/detail', courseController.detail);
+router.get('/search', courseController.search);
 
 router.get('/search', async function (req, res) {
     const q = req.query.q || '';
     if (q.length === 0) {
-        res.render('vwCourse/list', {
+        res.render('pages/course/list', {
             q: q,
             empty: true,
         });
@@ -80,7 +19,7 @@ router.get('/search', async function (req, res) {
 
     const keywords = q.replace(/ /g, ' & ');
     const courses = await courseModel.search(keywords);
-    res.render('vwCourse/list', {
+    res.render('pages/course/list', {
         q: q,
         empty: courses.length === 0,
         courses: courses,

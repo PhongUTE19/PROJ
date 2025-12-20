@@ -1,17 +1,17 @@
 import express from 'express';
-import categoryModel from '../models/category.model.js';
+import categoryModel from '../../models/category.model.js';
 
 const router = express.Router();
 
 router.get('/list', async function (req, res) {
     const categories = await categoryModel.findAll();
-    res.render('vwAdminCategory/list', {
+    res.render('pages/admin/category/list', {
         categories: categories
     });
 });
 
 router.get('/add', function (req, res) {
-    res.render('vwAdminCategory/add');
+    res.render('pages/admin/category/add');
 });
 
 router.get('/edit', async function (req, res) {
@@ -21,7 +21,7 @@ router.get('/edit', async function (req, res) {
         return res.redirect('/admin/category/list');
     }
 
-    res.render('vwAdminCategory/edit', {
+    res.render('pages/admin/category/edit', {
         category: category
     });
 });
@@ -32,7 +32,7 @@ router.post('/add', async function (req, res) {
         description: req.body.description
     };
     await categoryModel.add(category);
-    res.render('vwAdminCategory/add');
+    res.render('pages/admin/category/add');
 });
 
 router.post('/del', async function (req, res) {

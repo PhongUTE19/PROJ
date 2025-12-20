@@ -1,16 +1,25 @@
-export function checkAuthenticated(req, res, next) {
-    if (req.session.isAuthenticated) {
-        next();
-    } else {
-        req.session.retUrl = req.originalUrl;
-        res.redirect('/account/signin');
+const requireAuth = (req, res, next) => {
+    if (req.session?.isAuthenticated) {
+        return next();
     }
-}
 
-export function checkAdmin(req, res, next) {
-    if (req.session.authUser.permission === 1)
-        next()
-    else {
-        res.render('pages/error/403');
+    req.session.retUrl = req.originalUrl;
+    return res.redirect('/account/signin');
+};
+
+const requireAdmin = (req, res, next) => {
+    if (!req.session?.authUser) {
+        return res.redirect('/account/signin');
     }
-}
+
+    if (req.session.authUser.permission === 1) {
+        return next();
+    }
+
+    return res.status(403).render('pages/error/403');
+};
+
+export default {
+    requireAuth,
+    requireAdmin,
+};

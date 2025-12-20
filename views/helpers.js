@@ -1,6 +1,6 @@
 import hbs_sections from 'express-handlebars-sections';
 
-export const helpers = {
+const helpers = {
 	fillSection: hbs_sections(),
 	eq(a, b) {
 		return a === b;
@@ -75,4 +75,5 @@ export const helpers = {
 		return chunks;
 	},
 };
+
 export default helpers;

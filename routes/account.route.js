@@ -1,129 +1,19 @@
 import express from 'express';
-import bcrypt from 'bcryptjs';
-import userModel from '../models/user.model.js';
-import { checkAuthenticated } from '../middlewares/auth.middleware.js';
+import accountController from '../controllers/account.controller.js';
+import authMiddleware from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-router.get('/signup', function (req, res) {
-    res.render('pages/account/signup');
-});
+router.get('/signup', accountController.signupPage);
+router.get('/signin', accountController.signinPage);
+router.get('/profile', authMiddleware.requireAuth, accountController.profilePage);
+router.get('/change-password', authMiddleware.requireAuth, accountController.changePasswordPage);
+router.get('/is-available', accountController.isAvailable);
 
-router.get('/is-available', async function (req, res) {
-    const username = req.query.username;
-    const user = await userModel.findByUsername(username);
-    if (!user) {
-        return res.json(true);
-    }
-    return res.json(false);
-});
-
-router.get('/signin', function (req, res) {
-    res.render('pages/account/signin', {
-        error: false,
-    });
-});
-
-router.get('/profile', checkAuthenticated, function (req, res) {
-    res.render('pages/account/profile', {
-        user: req.session.authUser
-    });
-});
-
-router.get('/change-password', checkAuthenticated, function (req, res) {
-    res.render('pages/account/change-password', {
-        user: req.session.authUser
-    });
-});
-
-router.post('/signup', async function (req, res) {
-    const hashPassword = bcrypt.hashSync(req.body.password, 10);
-    const user = {
-        username: req.body.username,
-        password: hashPassword,
-        name: req.body.name,
-        email: req.body.email,
-        dob: req.body.birthdate,
-        permission: 0,
-    }
-
-    await userModel.add(user);
-    res.render('pages/account/signup')
-    // res.send(JSON.stringify(user))
-});
-
-router.post('/signin', async function (req, res) {
-    const user = await userModel.findByUsername(req.body.username);
-    if (!user) {
-        return res.render('pages/account/signin', {
-            error: true
-        });
-    }
-
-    const passwordMatch = bcrypt.compareSync(req.body.password, user.password)
-    if (passwordMatch === false) {
-        return res.render('pages/account/signin', {
-            error: true
-        });
-    }
-
-    req.session.isAuthenticated = true;
-    req.session.authUser = user;
-
-    const retUrl = req.session.retUrl || '/';
-    delete req.session.retUrl;
-    res.redirect(retUrl);
-
-    // res.redirect('/');
-});
-
-router.post('/signout', function (req, res) {
-    req.session.isAuthenticated = false;
-    req.session.authUser = null;
-    // res.redirect('/signin');
-    res.redirect(req.headers.referer);
-});
-
-router.post('/profile', checkAuthenticated, async function (req, res) {
-    const id = req.body.id;
-    const user = {
-        name: req.body.name,
-        email: req.body.email,
-    };
-    await userModel.patch(id, user);
-
-    req.session.authUser.name = req.body.name;
-    req.session.authUser.email = req.body.email;
-
-    res.render('pages/account/profile', {
-        user: req.session.authUser
-    });
-});
-
-router.post('/change-password', checkAuthenticated, async function (req, res) {
-    const id = req.body.id;
-    const currentPassword = req.body.currentPassword;
-    const newPassword = req.body.newPassword;
-
-    const ret = bcrypt.compareSync(currentPassword, req.session.authUser.password);
-    if (ret === false)
-        return res.render('pages/account/change-password', {
-            user: req.session.authUser,
-            error: true
-        });
-
-    const hashPassword = bcrypt.hashSync(newPassword, 10);
-    const user = {
-        password: hashPassword
-    };
-
-    await userModel.patch(id, user);
-    req.session.authUser.password = hashPassword;
-
-    res.render('pages/account/change-password', {
-        user: req.session.authUser,
-        success: true
-    });
-});
+router.post('/signup', accountController.signup);
+router.post('/signin', accountController.signin);
+router.post('/signout', accountController.signout);
+router.post('/profile', authMiddleware.requireAuth, accountController.updateProfile);
+router.post('/change-password', authMiddleware.requireAuth, accountController.changePassword);
 
 export default router;

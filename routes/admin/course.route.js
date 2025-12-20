@@ -1,61 +1,14 @@
 import express from 'express';
-import courseModel from '../../models/course.model.js';
+import adminCourseController from '../../controllers/admin/course.controller.js';
 
 const router = express.Router();
 
-router.get('/list', async function (req, res) {
-    const courses = await courseModel.findAll();
-    res.render('pages/admin/course/list', {
-        courses: courses
-    });
-});
+router.get('/list', adminCourseController.list);
+router.get('/add', adminCourseController.addPage);
+router.get('/edit', adminCourseController.editPage);
 
-router.get('/add', function (req, res) {
-    res.render('pages/admin/course/add');
-});
-
-router.get('/edit', async function (req, res) {
-    const id = req.query.id || 0;
-    const course = await courseModel.findById(id);
-    if (course === null) {
-        return res.redirect('/admin/course/list');
-    }
-
-    res.render('pages/admin/course/edit', {
-        course: course
-    });
-});
-
-router.post('/add', async function (req, res) {
-    const course = {
-        name: req.body.name,
-        category_id: req.body.categoryId,
-        short_des: req.body.shortDes,
-        long_des: req.body.longDes,
-        // keywords: req.body.keywords ? req.body.keywords.split(',').map(k => k.trim()) : null,,
-    }
-    await courseModel.add(course);
-    res.render('pages/admin/course/add');
-});
-
-router.post('/del', async function (req, res) {
-    const id = req.body.id;
-    await courseModel.del(id);
-    res.redirect('/admin/course/list');
-});
-
-router.post('/edit', async function (req, res) {
-    const id = req.body.id;
-    const course = {
-        name: req.body.name,
-        category_id: req.body.categoryId,
-        short_des: req.body.shortDes,
-        long_des: req.body.longDes,
-        updated_at: new Date(),
-        // keywords: req.body.keywords ? req.body.keywords.split(',').map(k => k.trim()) : null,,
-    };
-    await courseModel.edit(id, course);
-    res.redirect('/admin/course/list');
-});
+router.post('/add', adminCourseController.add);
+router.post('/edit', adminCourseController.edit);
+router.post('/del', adminCourseController.del);
 
 export default router;

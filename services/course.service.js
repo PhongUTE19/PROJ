@@ -2,7 +2,7 @@ import categoryModel from '../models/category.model.js';
 import courseModel from '../models/course.model.js';
 import { CONST } from '../utils/constant.js';
 
-const getCourseList = async ({ categoryId = 0, page = 1 }) => {
+const queryList = async ({ categoryId = 0, page = 1 }) => {
     const offset = (page - 1) * CONST.PAGE_ITEMS;
 
     const [courses, total] = categoryId == 0
@@ -41,7 +41,7 @@ const getCourseList = async ({ categoryId = 0, page = 1 }) => {
     };
 };
 
-const getCourseDetail = async (courseId) => {
+const queryDetail = async (courseId) => {
     if (!courseId) return null;
 
     const course = await courseModel.findById(courseId);
@@ -55,7 +55,7 @@ const getCourseDetail = async (courseId) => {
     };
 };
 
-const searchCourses = async (q = '') => {
+const querySearch = async (q = '') => {
     if (!q) return { q, empty: true };
 
     const keywords = q.replace(/ /g, ' & ');
@@ -69,8 +69,46 @@ const searchCourses = async (q = '') => {
     };
 };
 
+const getAll = async () => {
+    return courseModel.findAll();
+};
+
+const getById = async (id) => {
+    return courseModel.findById(id);
+};
+
+const create = async (data) => {
+    const course = {
+        name: data.name,
+        category_id: data.categoryId,
+        short_des: data.shortDes,
+        long_des: data.longDes,
+    };
+    return courseModel.add(course);
+};
+
+const update = async (id, data) => {
+    const course = {
+        name: data.name,
+        category_id: data.categoryId,
+        short_des: data.shortDes,
+        long_des: data.longDes,
+        updated_at: new Date(),
+    };
+    return courseModel.edit(id, course);
+};
+
+const remove = async (id) => {
+    return courseModel.del(id);
+};
+
 export default {
-    getCourseList,
-    getCourseDetail,
-    searchCourses,
+    queryList,
+    queryDetail,
+    querySearch,
+    getAll,
+    getById,
+    create,
+    update,
+    remove,
 };

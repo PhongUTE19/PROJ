@@ -35,9 +35,7 @@
                         <label for="txtEmail" class="form-label">Email</label>
                         <input type="email" class="form-control" id="txtEmail" aria-describedby="emailHelp"
                             name="email">
-                        <div id="emailHelp" class="form-text">Chúng tôi sẽ không bao giờ chia sẻ email của bạn với bất
-                            kỳ ai
-                            khác.
+                        <div id="emailHelp" class="form-text">Chúng tôi sẽ không bao giờ chia sẻ email của bạn với bất kỳ ai khác.
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">
@@ -62,8 +60,9 @@
         }
 
         const password = document.querySelector("#txtPassword").value;
-        if (password.length < 4) {
-            alert("Password must be at least 4 characters.");
+        const minLength = 4;
+        if (password.length < minLength) {
+            alert(`Password must be at least ${minLength} characters.`);
             return;
         }
 

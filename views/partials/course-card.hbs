@@ -1,10 +1,14 @@
 <div class="col-md-4 mb-3">
-    <div class="card h-100">
+    <div class="card h-100 position-relative course-card">
+        {{!-- https://picsum.photos/400/300?random={{course_id}} --}}
         <img class="course-img" src="/public/imgs/sp/{{course_id}}/main_thumbs.jpg" alt="No image"
             onerror="this.onerror=null; this.src='/public/imgs/no_image.jpg';">
         <div class="card-body">
-            <h4 class="card-text-ellipsis">{{name}}</h4>
-            <p class="card-text-ellipsis">{{short_des}}</p>
+            <h4 class="course-title">
+                <span>{{name}}</span>
+            </h4>
+            <p class="card-description-text-ellipsis">{{short_des}}</p>
+            <a href="/course/detail?courseId={{course_id}}" class="stretched-link"></a>
             <div class="d-flex justify-content-between">
                 <div class="d-flex justify-content-left gap-3">
                     <p class="card-text">
@@ -23,18 +27,12 @@
                     <span class="course-badge">Mới</span>
                     {{/if}}
                 </div>
-                <div class="d-flex justify-content-end gap-3">
-                    <a href="/course/detail?courseId={{course_id}}" class="btn btn-sm btn-outline-primary">
-                        <i class="bi bi-info-circle"></i>
-                        Xem chi tiết
-                    </a>
-                    {{#if isAuthenticated}}
-                    <a href="#" class="btn btn-sm btn-outline-success">
-                        <i class="bi bi-cart-plus"></i>
-                        Thêm vào danh sách học sau
-                    </a>
-                    {{/if}}
-                </div>
+                {{#if isAuthenticated}}
+                <a href="#" class="btn btn-sm btn-outline-success position-relative" style="z-index: 2">
+                    <i class="bi bi-heart"></i>
+                    Quan tâm
+                </a>
+                {{/if}}
             </div>
         </div>
     </div>

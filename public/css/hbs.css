@@ -27,105 +27,9 @@
     --radius-soft: 25px;
 }
 
-.card {
-    height: 100%;
-    border-radius: var(--radius-soft);
-    border: none;
-    background-color: var(--white-main);
-    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-        box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card-header {
-    background-color: var(--yellow-light);
-    font-weight: 600;
-}
-
-.course-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 18px 0 rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-}
-
-.course-title {
-    position: relative;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.course-title::before,
-.course-title::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 24px;
-    height: 100%;
-    pointer-events: none;
-    z-index: 2;
-}
-
-.course-title::before {
-    left: 0;
-    background: linear-gradient(to right, var(--white-main), transparent);
-}
-
-.course-title::after {
-    right: 0;
-    background: linear-gradient(to left, var(--white-main), transparent);
-}
-
-.course-title span {
-    display: inline-block;
-    transform: translateX(0);
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
-.course-card:hover .course-title.is-overflow span {
-    transition: transform var(--scroll-duration, 6s) linear;
-    transform: translateX(calc(-1 * var(--scroll-distance)));
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .course-title span {
-        transition: none;
-        transform: none;
-    }
-}
-
-.card-description-text-ellipsis {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-height: 3em;
-    line-height: 1.5em;
-}
-
-.course-img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-.carousel-indicators {
-    position: static !important;
-}
-
-.carousel-indicators [data-bs-target] {
-    background-color: #000 !important;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-}
-
 /* ========================
-NỀN & CHỮ CƠ BẢN
+BACKGROUND & TEXT
 ======================== */
-
 
 body {
     padding-top: 70px;
@@ -133,9 +37,7 @@ body {
     color: var(--text-dark);
     font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
     font-size: 18px;
-    /* chữ to vừa phải */
     line-height: 1.7;
-    /* thoáng, dễ đọc */
 }
 
 h1,
@@ -152,10 +54,8 @@ li {
     color: var(--text-muted);
 }
 
-
-
 /* ========================
-NÚT BẤM
+BUTTONS
 ======================== */
 
 
@@ -174,4 +74,204 @@ NÚT BẤM
 
 .bi {
     font-size: 1.3em;
+}
+
+/* ========================
+CARD HEADER
+======================== */
+
+.card-header {
+    background-color: var(--yellow-light);
+    border: none;
+
+    font-weight: 700;
+}
+
+/* ========================
+COURSE CARD
+======================== */
+
+.course-card {
+    height: 100%;
+    border: none;
+    border-radius: var(--radius-soft);
+    background-color: var(--white-main);
+    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 18px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.course-card-title {
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.course-card-title::before,
+.course-card-title::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 24px;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.course-card-title::before {
+    left: 0;
+    background: linear-gradient(to right, var(--white-main), transparent);
+}
+
+.course-card-title::after {
+    right: 0;
+    background: linear-gradient(to left, var(--white-main), transparent);
+}
+
+.course-card-title span {
+    display: inline-block;
+    transform: translateX(0);
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.course-card:hover .course-card-title.is-overflow span {
+    transition: transform var(--scroll-duration, 6s) linear;
+    transform: translateX(calc(-1 * var(--scroll-distance)));
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .course-card-title span {
+        transition: none;
+        transform: none;
+    }
+}
+
+.course-card-description-text-ellipsis {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 3em;
+    line-height: 1.5em;
+}
+
+.course-card-thumbnail {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+/* ========================
+CAROUSEL INDICATORS
+======================== */
+
+.carousel-indicators {
+    position: static !important;
+}
+
+.carousel-indicators [data-bs-target] {
+    background-color: var(--text-dark) !important;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+/* ========================
+PAGINATION
+======================== */
+
+.custom-pagination {
+    margin-top: 50px;
+    gap: 0.75rem;
+}
+
+.custom-pagination .page-link {
+    min-width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+    font-size: 1rem;
+
+    color: var(--text-dark);
+    border: 3px solid var(--text-muted);
+    border-radius: var(--radius-soft);
+    border-color: var(--text-dark);
+
+    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.08);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.custom-pagination .page-item:not(.active):not(.disabled) .page-link:hover {
+    background-color: var(--yellow-soft);
+    box-shadow: 0 18px 0 rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+}
+
+.custom-pagination .page-item.active .page-link {
+    background-color: var(--green-main);
+    color: var(--green-soft);
+    border-color: var(--green-main);
+}
+
+.custom-pagination .page-item.disabled .page-link {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background-color: var(--white-main);
+}
+
+/* ========================
+EXPAND BUTTON
+======================== */
+
+.btn-expand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    overflow: hidden;
+    white-space: nowrap;
+
+    max-width: 42px;                 /* icon only */
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+
+    transition:
+        max-width 0.35s ease,
+        padding 0.35s ease,
+        background-color 0.25s ease;
+}
+
+/* hide text visually */
+.btn-expand .btn-text {
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* hover / focus */
+.btn-expand:hover,
+.btn-expand:focus-visible {
+    max-width: var(--btn-expand-width);            /* enough for text */
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+}
+
+/* reveal text */
+.btn-expand:hover .btn-text,
+.btn-expand:focus-visible .btn-text {
+    opacity: 1;
+    transform: translateX(0);
 }

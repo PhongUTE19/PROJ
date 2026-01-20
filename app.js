@@ -16,7 +16,7 @@ import viewMiddleware from './middlewares/view.middleware.js';
 // 1. Core setup: Place these at the start of the file
 // const __dirname = import.meta.dirname;
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.set('trust proxy', 1) // trust first proxy
 
@@ -60,6 +60,6 @@ app.use("/admin/category", authMiddleware.requireAuth, authMiddleware.requireAdm
 app.use(errorMiddleware.notFound);
 
 // 9. Start the server: Place this at the end of the file.
-app.listen(port, function () {
-    console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });

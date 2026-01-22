@@ -1,4 +1,5 @@
 import courseService from '../services/course.service.js';
+import faqService from '../services/faq.service.js';
 import { CONST } from '../utils/constant.js';
 
 const index = async (req, res) => {
@@ -8,6 +9,20 @@ const index = async (req, res) => {
     });
 };
 
+const faqs = async (req, res) => {
+    const faqs = await faqService.getAll();
+    res.render('pages/common/faqs', {
+        faqs,
+    });
+};
+
+
+const about = async (req, res) => {
+    res.render('pages/common/about');
+};
+
 export default {
-    index
+    index,
+    faqs,
+    about
 };

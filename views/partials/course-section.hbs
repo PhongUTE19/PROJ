@@ -2,7 +2,7 @@
     <h2 class="card-title d-flex justify-content-center">{{title}}</h2>
     <p class="card-title d-flex justify-content-center">{{subTitle}}</p>
 
-    <div id="courseCarousel{{index}}" class="carousel slide themed-carousel" data-bs-ride="carousel">
+    <div id="courseCarousel{{index}}" class="carousel slide my-carousel" data-bs-ride="carousel">
         <div class="carousel-inner">
             {{#each (chunk courses 3)}}
             <div class="carousel-item {{#if @first}}active{{/if}}">

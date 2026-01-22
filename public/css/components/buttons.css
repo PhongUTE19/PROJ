@@ -30,14 +30,14 @@
     padding-right: 0.6rem;
 
     transition:
-        max-width 0.35s ease,
-        padding 0.35s ease,
-        background-color 0.25s ease;
+        max-width var(--ease-time) ease,
+        padding var(--ease-time) ease,
+        background-color var(--ease-time) ease;
 }
 
 .btn-expand .btn-text {
     opacity: 0;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    transition: opacity var(--ease-time) ease, transform var(--ease-time) ease;
 }
 
 .btn-expand:hover,

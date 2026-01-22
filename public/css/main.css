@@ -5,4 +5,7 @@
 @import "./components/cards.css";
 @import "./components/pagination.css";
 @import "./components/carousel.css";
+@import "./components/header.css";
 @import "./components/footer.css";
+
+@import "./components/courses.css";

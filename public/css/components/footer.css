@@ -14,7 +14,7 @@
 .footer-link {
     color: var(--white-main);
     font-weight: 700;
-    transition: color 0.25s ease;
+    transition: color var(--ease-time) ease;
 }
 
 .footer-link:hover {

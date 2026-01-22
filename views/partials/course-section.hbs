@@ -2,7 +2,7 @@
     <h2 class="card-title d-flex justify-content-center">{{title}}</h2>
     <p class="card-title d-flex justify-content-center">{{subTitle}}</p>
 
-    <div id="courseCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div id="courseCarousel{{index}}" class="carousel slide themed-carousel" data-bs-ride="carousel">
         <div class="carousel-inner">
             {{#each (chunk courses 3)}}
             <div class="carousel-item {{#if @first}}active{{/if}}">
@@ -17,17 +17,17 @@
 
         <div class="carousel-indicators">
             {{#each (chunk courses 3)}}
-            <button type="button" data-bs-target="#courseCarousel" data-bs-slide-to="{{@index}}"
+            <button type="button" data-bs-target="#courseCarousel{{index}}" data-bs-slide-to="{{@index}}"
                 class="{{#if @first}}active{{/if}}">
             </button>
             {{/each}}
         </div>
 
-        <button class="carousel-control-prev" type="button" data-bs-target="#courseCarousel" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#courseCarousel{{index}}" data-bs-slide="prev">
             <span class="carousel-control-prev-icon"></span>
         </button>
 
-        <button class="carousel-control-next" type="button" data-bs-target="#courseCarousel" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#courseCarousel{{index}}" data-bs-slide="next">
             <span class="carousel-control-next-icon"></span>
         </button>
     </div>

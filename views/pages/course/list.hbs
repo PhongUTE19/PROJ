@@ -1,6 +1,5 @@
+<h1>Danh sách khóa học</h1>
 <div class="card">
-    {{!-- <div class="card-header">Search result for "{{q}}"</div> --}}
-    <div class="card-header">Danh sách khóa học</div>
     <div class="card-body">
         <h4 class="card-title">{{filter.name}}</h4>
         {{#if (eq courses.length 0)}}
@@ -20,31 +19,4 @@
     </div>
 </div>
 
-{{> course-scroll-title}}
-
-<script>
-document.querySelectorAll('.btn-expand').forEach(btn => {
-    const icon = btn.querySelector('i');
-    const text = btn.querySelector('.btn-text');
-
-    if (!text) return;
-
-    // Temporarily reveal text to measure
-    const prevOpacity = text.style.opacity;
-    const prevTransform = text.style.transform;
-
-    text.style.opacity = '1';
-    text.style.transform = 'none';
-
-    const totalWidth =
-        icon.offsetWidth +
-        text.offsetWidth +
-        32; // padding + gap safety
-
-    btn.style.setProperty('--btn-expand-width', `${totalWidth}px`);
-
-    // Restore hidden state
-    text.style.opacity = prevOpacity;
-    text.style.transform = prevTransform;
-});
-</script>
+{{> course-effects}}

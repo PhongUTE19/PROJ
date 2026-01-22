@@ -4,9 +4,9 @@
         <img class="course-card-thumbnail" src="/public/imgs/sp/{{course_id}}/main_thumbs.jpg" alt="No image"
             onerror="this.onerror=null; this.src='/public/imgs/no_image.jpg';">
         <div class="card-body">
-            <h4 class="course-card-title">
+            <div class="course-card-title">
                 <span>{{name}}</span>
-            </h4>
+            </div>
             <p class="course-card-description-text-ellipsis">{{short_des}}</p>
             <a href="/course/detail?courseId={{course_id}}" class="stretched-link"></a>
             <div class="d-flex justify-content-between">
@@ -28,16 +28,11 @@
                     {{/if}}
                 </div>
                 {{#if @root.isAuthenticated}}
-                <a href="#" class="btn btn-sm btn-outline-success position-relative" style="z-index: 2">
-                    <i class="bi bi-heart"></i>
-                    Quan tâm
-                </a>
-                {{/if}}
                 <a href="#" class="btn btn-sm btn-outline-success btn-expand" style="z-index: 2">
                     <i class="bi bi-heart"></i>
-                    <span class="btn-text">Học sau</span>
+                    <span class="btn-text">Quan tâm</span>
                 </a>
-
+                {{/if}}
             </div>
         </div>
     </div>

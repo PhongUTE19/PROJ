@@ -1,11 +1,10 @@
 <div class="card">
-    <div class="card-header d-flex justify-content-between">Danh sách lĩnh vực
-        <a name="" id="" class="btn btn-primary" href="/admin/category/add" role="button">
-            <i class="bi bi-unity"></i>
-            Thêm lĩnh vực
-        </a>
-    </div>
-    <table class="table table-hover">
+    <h1>Danh sách lĩnh vực</h1>
+    <a name="" id="" class="btn btn-outline-success" href="/admin/category/add" role="button">
+        <i class="bi bi-unity"></i>
+        Thêm lĩnh vực
+    </a>
+    <table class="my-table">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -21,7 +20,8 @@
                 <td>{{name}}</td>
                 <td>{{description}}</td>
                 <td class="text-end">
-                    <a name="" id="" class="btn btn-primary" href="/admin/category/edit?id={{category_id}}" role="button">
+                    <a name="" id="" class="btn btn-outline-success" href="/admin/category/edit?id={{category_id}}"
+                        role="button">
                         <i class="bi bi-pencil-square"></i>
                     </a>
                 </td>

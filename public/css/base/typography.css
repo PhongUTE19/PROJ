@@ -16,6 +16,11 @@ h5 {
     color: var(--text-dark);
 }
 
+h1 {
+    color: var(--green-soft);
+    text-align: center;
+}
+
 p,
 li {
     color: var(--text-muted);

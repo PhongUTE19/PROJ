@@ -4,15 +4,40 @@
 
     padding: 10px 22px;
     border-radius: 25px;
-}
-
-.btn-primary {
-    background-color: var(--green-soft);
-    border: none;
+    white-space: normal;
+    margin: auto;
 }
 
 .bi {
     font-size: 1.3em;
+}
+
+.btn-outline-success {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    border-radius: var(--radius-soft);
+    border: 3px solid var(--green-soft);
+    color: var(--green-soft);
+    font-weight: 800;
+
+    transition:
+        transform var(--ease-time) ease,
+        box-shadow var(--ease-time) ease,
+        background-color var(--ease-time) ease;
+}
+
+.btn-outline-success:hover {
+    background-color: var(--green-soft);
+    color: var(--white-main);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+    border-radius: var(--radius-soft);
+    font-weight: 800;
 }
 
 /* === EXPAND BUTTON === */

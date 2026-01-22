@@ -48,52 +48,6 @@
     background-color: var(--yellow-soft);
 }
 
-/* Search form */
-.navbar form {
-    gap: 0.5rem;
-}
-
-.navbar .form-control {
-    border-radius: var(--radius-soft);
-    border: 2px solid var(--text-dark);
-    font-weight: 600;
-}
-
-.navbar .form-control:focus {
-    border-color: var(--green-soft);
-    box-shadow: none;
-}
-
-/* Search button */
-.navbar .btn-outline-success {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-
-    border-radius: var(--radius-soft);
-    border: 3px solid var(--green-soft);
-    color: var(--green-soft);
-    font-weight: 800;
-
-    transition:
-        transform var(--ease-time) ease,
-        box-shadow var(--ease-time) ease,
-        background-color var(--ease-time) ease;
-}
-
-.navbar .btn-outline-success:hover {
-    background-color: var(--green-soft);
-    color: var(--white-main);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-/* Auth buttons */
-.navbar .btn {
-    border-radius: var(--radius-soft);
-    font-weight: 800;
-}
-
 /* Mobile tweak */
 /* @media (max-width: 992px) {
     .navbar-collapse {

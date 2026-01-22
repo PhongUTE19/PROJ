@@ -1,6 +1,6 @@
 <form id="frmProfile" action="" method="post">
+    <h1>Profile</h1>
     <div class="card">
-        <h5 class="card-header">Profile</h5>
         <div class="card-body">
             {{#with user}}
             <div class="mb-3">
@@ -17,11 +17,9 @@
             </div>
             {{/with}}
         </div>
-        <div class="card-footer text-muted">
-            <button type="submit" class="btn btn-outline-success">
-                <i class="bi bi-check2"></i>
-                Save
-            </button>
-        </div>
+        <button type="submit" class="btn btn-outline-success">
+            <i class="bi bi-check2"></i>
+            Save
+        </button>
     </div>
 </form>

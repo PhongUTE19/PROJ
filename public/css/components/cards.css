@@ -7,3 +7,8 @@
     border: none;
     font-weight: 700;
 }
+
+.card-footer {
+    background-color: var(--white-main);
+    border: none;
+}

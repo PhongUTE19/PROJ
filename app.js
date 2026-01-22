@@ -58,6 +58,7 @@ app.use("/admin/category", authMiddleware.requireAuth, authMiddleware.requireAdm
 
 // 8. Error handling middleware
 app.use(errorMiddleware.notFound);
+app.use(errorMiddleware.forbidden);
 
 // 9. Start the server: Place this at the end of the file.
 app.listen(PORT, () => {

@@ -1,44 +1,45 @@
 import categoryModel from '../models/category.model.js';
 import courseModel from '../models/course.model.js';
+import paginate from '../helpers/pagination.js';
 import { CONST } from '../config/constant.js';
 
 const queryList = async ({ categoryId = 0, page = 1 }) => {
-    const offset = (page - 1) * CONST.PAGE_ITEMS;
+    const isAll = categoryId == 0;
 
-    const [courses, total] = categoryId == 0
-        ? [
-            await courseModel.findPage(CONST.PAGE_ITEMS, offset),
-            await courseModel.count()
-        ]
-        : [
-            await courseModel.findPageByCategory(categoryId, CONST.PAGE_ITEMS, offset),
-            await courseModel.countByCategory(categoryId)
-        ];
-
-    const nPages = Math.ceil(total.amount / CONST.PAGE_ITEMS);
-    const pageNumbers = [];
-    const currPage = parseInt(page);
-    for (let i = 1; i <= nPages; i++) {
-        pageNumbers.push({
-            value: i,
-            isCurrent: i === currPage
-        });
-    }
+    const result = await paginate({
+        page,
+        fetch: (limit, offset) =>
+            isAll
+                ? courseModel.findPage(limit, offset)
+                : courseModel.findPageByCategory(categoryId, limit, offset),
+        count: () =>
+            isAll
+                ? courseModel.count()
+                : courseModel.countByCategory(categoryId)
+    });
 
     let filterName = 'Tất cả khóa học';
-    if (categoryId != 0) {
+    if (!isAll) {
         const category = await categoryModel.findById(categoryId);
         if (category)
             filterName = `Lọc theo lĩnh vực: ${category.name}`;
     }
 
     return {
-        courses,
-        filter: { name: filterName, categoryId },
-        pageNumbers,
-        prevPage: currPage - 1,
-        nextPage: currPage + 1,
+        courses: result.items,
+        filter: {
+            name: filterName,
+            categoryId,
+            totalText: `Kết quả tìm được: ${result.total}`
+        },
+        pagination: {
+            pageNumbers: result.pageNumbers,
+            prevPage: result.prevPage,
+            nextPage: result.nextPage,
+            query: `categoryId=${categoryId}`
+        }
     };
+
 };
 
 const queryDetail = async (courseId) => {
@@ -55,30 +56,45 @@ const queryDetail = async (courseId) => {
     };
 };
 
-const querySearch = async (q = '') => {
+const querySearch = async (q = '', page = 1) => {
     if (!q) return { q, empty: true };
 
     const keywords = q.replace(/ /g, ' & ');
-    const courses = await courseModel.search(keywords);
-    let filterName = `Lọc theo tìm kiếm: ${q}`;
+
+    const result = await paginate({
+        page,
+        fetch: (limit, offset) =>
+            courseModel.search(keywords).limit(limit).offset(offset),
+        count: () =>
+            courseModel.countBySearch(keywords)
+    });
 
     return {
-        filter: { name: filterName},
-        courses,
-        empty: courses.length === 0,
-        pages: [],
+        courses: result.items,
+        filter: {
+            name: `Lọc theo tìm kiếm: ${q}`,
+            totalText: `Kết quả tìm được: ${result.total}`
+        },
+        pagination: {
+            pageNumbers: result.pageNumbers,
+            prevPage: result.prevPage,
+            nextPage: result.nextPage,
+            query: `q=${encodeURIComponent(q)}`
+        }
     };
+
 };
 
-const getAll = async () => {
+
+const findAll = async () => {
     return courseModel.findAll();
 };
 
-const getById = async (id) => {
+const findById = async (id) => {
     return courseModel.findById(id);
 };
 
-const create = async (data) => {
+const add = async (data) => {
     const course = {
         name: data.name,
         category_id: data.categoryId,
@@ -88,7 +104,7 @@ const create = async (data) => {
     return courseModel.add(course);
 };
 
-const update = async (id, data) => {
+const edit = async (id, data) => {
     const course = {
         name: data.name,
         category_id: data.categoryId,
@@ -99,7 +115,7 @@ const update = async (id, data) => {
     return courseModel.edit(id, course);
 };
 
-const remove = async (id) => {
+const del = async (id) => {
     return courseModel.del(id);
 };
 
@@ -107,9 +123,9 @@ export default {
     queryList,
     queryDetail,
     querySearch,
-    getAll,
-    getById,
-    create,
-    update,
-    remove,
+    findAll,
+    findById,
+    add,
+    edit,
+    del,
 };

@@ -1,39 +1,39 @@
 import accountService from '../services/account.service.js';
 
-const signupPage = (req, res) => {
+const showSignupPage = (req, res) => {
     res.render('pages/account/signup');
 };
 
-const signinPage = (req, res) => {
+const showSigninPage = (req, res) => {
     res.render('pages/account/signin', {
         error: false
     });
 };
 
-const profilePage = (req, res) => {
+const showProfilePage = (req, res) => {
     res.render('pages/account/profile', {
         user: req.session.authUser
     });
 };
 
-const changePasswordPage = (req, res) => {
+const showChangePasswordPage = (req, res) => {
     res.render('pages/account/change-password', {
         user: req.session.authUser
     });
 };
 
 const isAvailable = async (req, res) => {
-    const available = await accountService.isUsernameAvailable(req.query.username);
+    const available = await accountService.isAvailable(req.query.username);
     res.json(available);
 };
 
 const signup = async (req, res) => {
-    await accountService.register(req.body);
-    res.render('pages/account/signup');
+    await accountService.signup(req.body);
+    res.render('pages/account/signin');
 };
 
 const signin = async (req, res) => {
-    const result = await accountService.login(req.body);
+    const result = await accountService.signin(req.body);
 
     if (!result.success) {
         return res.render('pages/account/signin', {
@@ -64,8 +64,8 @@ const updateProfile = async (req, res) => {
     });
 };
 
-const changePassword = async (req, res) => {
-    const success = await accountService.changePassword(req.body, req.session.authUser);
+const updatePassword = async (req, res) => {
+    const success = await accountService.updatePassword(req.body, req.session.authUser);
 
     if (!success) {
         return res.render('pages/account/change-password', {
@@ -81,14 +81,14 @@ const changePassword = async (req, res) => {
 };
 
 export default {
-    signupPage,
-    signinPage,
-    profilePage,
-    changePasswordPage,
+    showSignupPage,
+    showSigninPage,
+    showProfilePage,
+    showChangePasswordPage,
     isAvailable,
     signup,
     signin,
     signout,
     updateProfile,
-    changePassword
+    updatePassword
 };

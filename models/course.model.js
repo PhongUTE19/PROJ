@@ -51,6 +51,13 @@ const search = (q) => {
         .whereRaw(`fts @@ to_tsquery(remove_accents('${q}'))`);
 };
 
+const countBySearch = (q) => {
+    return baseQuery()
+        .whereRaw(`fts @@ to_tsquery(remove_accents('${q}'))`)
+        .count('course_id as amount')
+        .first();
+};
+
 // WRITE
 const add = (course) => {
     return baseQuery().insert(course);
@@ -77,6 +84,7 @@ export default {
     count,
     countByCategory,
     search,
+    countBySearch,
     add,
     del,
     edit,

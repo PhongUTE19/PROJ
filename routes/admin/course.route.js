@@ -3,9 +3,9 @@ import adminCourseController from '../../controllers/admin/course.controller.js'
 
 const router = express.Router();
 
-router.get('/list', adminCourseController.list);
-router.get('/add', adminCourseController.addPage);
-router.get('/edit', adminCourseController.editPage);
+router.get('/list', adminCourseController.showListPage);
+router.get('/add', adminCourseController.showAddPage);
+router.get('/edit', adminCourseController.showEditPage);
 
 router.post('/add', adminCourseController.add);
 router.post('/edit', adminCourseController.edit);

@@ -1,39 +1,45 @@
 <div class="row">
-    <nav aria-label="...">
+    <nav>
         <ul class="pagination my-pagination justify-content-center">
-            {{#if (lt prevPage 1)}}
+
+            {{#if (lt pagination.prevPage 1)}}
             <li class="page-item disabled">
-                <a class="page-link" href="#">Trước</a>
+                <a class="page-link">Trước</a>
             </li>
             {{else}}
             <li class="page-item">
-                <a class="page-link" href="?categoryId={{filter.categoryId}}&page={{prevPage}}">Trước</a>
-            </li>
-            {{/if}}
-            {{#each pageNumbers}}
-            {{#if isCurrent}}
-            <li class="page-item active">
-                <a class="page-link" href="javascript:void(0);">
-                    {{value}}
+                <a class="page-link" href="?{{pagination.query}}&page={{pagination.prevPage}}">
+                    Trước
                 </a>
             </li>
+            {{/if}}
+
+            {{#each pagination.pageNumbers}}
+            {{#if isCurrent}}
+            <li class="page-item active">
+                <span class="page-link">{{value}}</span>
+            </li>
             {{else}}
             <li class="page-item">
-                <a class="page-link" href="?categoryId={{../filter.categoryId}}&page={{value}}">
+                <a class="page-link" href="?{{../pagination.query}}&page={{value}}">
                     {{value}}
                 </a>
             </li>
             {{/if}}
             {{/each}}
-            {{#if (gt nextPage pageNumbers.length)}}
+
+            {{#if (gt pagination.nextPage pagination.pageNumbers.length)}}
             <li class="page-item disabled">
-                <a class="page-link" href="#">Sau</a>
+                <a class="page-link">Sau</a>
             </li>
             {{else}}
             <li class="page-item">
-                <a class="page-link" href="?categoryId={{filter.categoryId}}&page={{nextPage}}">Sau</a>
+                <a class="page-link" href="?{{pagination.query}}&page={{pagination.nextPage}}">
+                    Sau
+                </a>
             </li>
             {{/if}}
+
         </ul>
     </nav>
 </div>

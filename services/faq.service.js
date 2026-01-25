@@ -1,9 +1,9 @@
 import faqModel from '../models/faq.model.js';
 
-const getAll = async () => {
+const findAll = async () => {
     return faqModel.findAll();
 };
 
 export default {
-    getAll,
+    findAll,
 };

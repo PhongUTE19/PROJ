@@ -8,7 +8,7 @@ const findById = async (id) => {
     return categoryModel.findById(id);
 };
 
-const create = async (data) => {
+const add = async (data) => {
     const category = {
         name: data.name,
         description: data.description
@@ -16,7 +16,7 @@ const create = async (data) => {
     return categoryModel.add(category);
 };
 
-const update = async (id, data) => {
+const edit = async (id, data) => {
     const category = {
         name: data.name,
         description: data.description
@@ -24,14 +24,14 @@ const update = async (id, data) => {
     return categoryModel.edit(id, category);
 };
 
-const remove = async (id) => {
+const del = async (id) => {
     return categoryModel.del(id);
 };
 
 export default {
     findAll,
     findById,
-    create,
-    update,
-    remove
+    add,
+    edit,
+    del
 };

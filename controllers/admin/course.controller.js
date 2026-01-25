@@ -1,18 +1,18 @@
 import courseService from '../../services/course.service.js';
 
-const list = async (req, res) => {
-    const courses = await courseService.getAll();
+const showListPage = async (req, res) => {
+    const courses = await courseService.findAll();
     res.render('pages/admin/course/list', {
         courses
     });
 };
 
-const addPage = (req, res) => {
+const showAddPage = (req, res) => {
     res.render('pages/admin/course/add');
 };
 
-const editPage = async (req, res) => {
-    const course = await courseService.getById(req.query.id);
+const showEditPage = async (req, res) => {
+    const course = await courseService.findById(req.query.id);
     if (!course)
         return res.redirect('/admin/course/list');
 
@@ -22,24 +22,24 @@ const editPage = async (req, res) => {
 };
 
 const add = async (req, res) => {
-    await courseService.create(req.body);
+    await courseService.add(req.body);
     res.render('pages/admin/course/add');
 };
 
 const edit = async (req, res) => {
-    await courseService.update(req.body.id, req.body);
+    await courseService.edit(req.body.id, req.body);
     res.redirect('/admin/course/list');
 };
 
 const del = async (req, res) => {
-    await courseService.remove(req.body.id);
+    await courseService.del(req.body.id);
     res.redirect('/admin/course/list');
 };
 
 export default {
-    list,
-    addPage,
-    editPage,
+    showListPage,
+    showAddPage,
+    showEditPage,
     add,
     edit,
     del

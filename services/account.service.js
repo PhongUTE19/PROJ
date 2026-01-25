@@ -1,12 +1,12 @@
 import bcrypt from 'bcryptjs';
 import userModel from '../models/user.model.js';
 
-const isUsernameAvailable = async (username) => {
+const isAvailable = async (username) => {
     const user = await userModel.findByUsername(username);
     return !user;
 };
 
-const register = async (data) => {
+const signup = async (data) => {
     const hashPassword = bcrypt.hashSync(data.password, 10);
 
     const user = {
@@ -21,7 +21,7 @@ const register = async (data) => {
     await userModel.add(user);
 };
 
-const login = async ({ username, password }) => {
+const signin = async ({ username, password }) => {
     const user = await userModel.findByUsername(username);
     if (!user) return { success: false };
 
@@ -36,25 +36,25 @@ const updateProfile = async ({ id, name, email }) => {
         name,
         email,
     };
-    await userModel.patch(id, user);
+    await userModel.edit(id, user);
     return user;
 };
 
-const changePassword = async ({ id, currentPassword, newPassword }, sessionUser) => {
+const updatePassword = async ({ id, currentPassword, newPassword }, sessionUser) => {
     const match = bcrypt.compareSync(currentPassword, sessionUser.password);
     if (!match) return false;
 
     const hashPassword = bcrypt.hashSync(newPassword, 10);
-    await userModel.patch(id, { password: hashPassword });
+    await userModel.edit(id, { password: hashPassword });
 
     sessionUser.password = hashPassword;
     return true;
 };
 
 export default {
-    isUsernameAvailable,
-    register,
-    login,
+    isAvailable,
+    signup,
+    signin,
     updateProfile,
-    changePassword
+    updatePassword
 };

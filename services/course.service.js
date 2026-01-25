@@ -1,6 +1,6 @@
 import categoryModel from '../models/category.model.js';
 import courseModel from '../models/course.model.js';
-import { CONST } from '../utils/constant.js';
+import { CONST } from '../config/constant.js';
 
 const queryList = async ({ categoryId = 0, page = 1 }) => {
     const offset = (page - 1) * CONST.PAGE_ITEMS;

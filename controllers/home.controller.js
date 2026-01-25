@@ -1,6 +1,6 @@
 import courseService from '../services/course.service.js';
 import faqService from '../services/faq.service.js';
-import { CONST } from '../utils/constant.js';
+import { CONST } from '../config/constant.js';
 
 const index = async (req, res) => {
     const courses = await courseService.getAll();

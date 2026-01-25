@@ -5,7 +5,8 @@ const tableName = 'faqs';
 const baseQuery = () => db(tableName);
 
 const findAll = () => {
-    return baseQuery();
+    return baseQuery()
+        .orderBy('faq_id', 'asc');
 };
 
 const findById = (id) => {
@@ -15,7 +16,8 @@ const findById = (id) => {
 };
 
 const add = (faq) => {
-    return baseQuery().insert(faq);
+    return baseQuery()
+        .insert(faq);
 };
 
 const del = (id) => {

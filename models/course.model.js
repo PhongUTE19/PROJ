@@ -6,7 +6,8 @@ const baseQuery = () => db(tableName);
 
 // READ
 const findAll = () => {
-    return baseQuery();
+    return baseQuery()
+        .orderBy('course_id', 'asc');
 };
 
 const findById = (id) => {
@@ -22,6 +23,7 @@ const findByCategory = (categoryId) => {
 
 const findPage = (limit, offset) => {
     return baseQuery()
+        .orderBy('course_id', 'asc')
         .limit(limit)
         .offset(offset);
 };
@@ -29,6 +31,7 @@ const findPage = (limit, offset) => {
 const findPageByCategory = (categoryId, limit, offset) => {
     return baseQuery()
         .where('category_id', categoryId)
+        .orderBy('course_id', 'asc')
         .limit(limit)
         .offset(offset);
 };
@@ -60,7 +63,8 @@ const countBySearch = (q) => {
 
 // WRITE
 const add = (course) => {
-    return baseQuery().insert(course);
+    return baseQuery()
+        .insert(course);
 };
 
 const del = (id) => {

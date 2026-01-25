@@ -29,7 +29,7 @@ const queryList = async ({ categoryId = 0, page = 1 }) => {
     if (categoryId != 0) {
         const category = await categoryModel.findById(categoryId);
         if (category)
-            filterName = `Lọc theo: ${category.name}`;
+            filterName = `Lọc theo lĩnh vực: ${category.name}`;
     }
 
     return {
@@ -60,9 +60,10 @@ const querySearch = async (q = '') => {
 
     const keywords = q.replace(/ /g, ' & ');
     const courses = await courseModel.search(keywords);
+    let filterName = `Lọc theo tìm kiếm: ${q}`;
 
     return {
-        q,
+        filter: { name: filterName},
         courses,
         empty: courses.length === 0,
         pages: [],

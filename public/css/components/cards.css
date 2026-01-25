@@ -12,3 +12,8 @@
     background-color: var(--white-main);
     border: none;
 }
+
+.card-title {
+    margin-bottom: 40px;
+    font-weight: 700;
+}

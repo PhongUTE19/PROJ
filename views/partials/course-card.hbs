@@ -19,12 +19,12 @@
                     <span><i class="bi bi-star-fill"></i> {{rating}}</span>
                     <span><i class="bi bi-people-fill"></i> {{rating_count}}</span>
                     <span><i class="bi bi-eye-fill"></i> {{view_count}}</span>
+                    {{#if (isNew created_at)}}
+                    <span class="course-badge">Mới</span>
+                    {{/if}}
                 </div>
-                {{#if (isNew created_at)}}
-                <span class="course-badge">Mới</span>
-                {{/if}}
                 {{#if @root.isAuthenticated}}
-                <a href="#" class="btn btn-sm btn-outline-success btn-expand" style="z-index: 2">
+                <a href="#" class="btn btn-sm btn-outline-success btn-expand">
                     <i class="bi bi-heart"></i>
                     <span class="btn-text">Quan tâm</span>
                 </a>

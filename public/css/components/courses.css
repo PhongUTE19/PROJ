@@ -153,3 +153,11 @@ COURSE CARD
 .course-stats {
     margin-top: 0.25rem;
 }
+
+.course-badge {
+    color: var(--text-dark);
+    border-radius: var(--radius-soft);
+    border-color: var(--green-soft);
+    font-style: italic;
+    font-weight: 700;
+}

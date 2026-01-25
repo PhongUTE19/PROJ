@@ -5,9 +5,7 @@ const showSignupPage = (req, res) => {
 };
 
 const showSigninPage = (req, res) => {
-    res.render('pages/account/signin', {
-        error: false
-    });
+    res.render('pages/account/signin');
 };
 
 const showProfilePage = (req, res) => {
